@@ -69,7 +69,7 @@ docker stats
 
 ## Accessing the notebook
 
-You can access the default notebook by going to http://172.25.0.19:8080/#/notebook/2EAB941ZD. Now we can start running the cells.
+You can access the default notebook by going to http://127.0.0.1:8080/#/notebook/2EAB941ZD. Now we can start running the cells.
 
 ### 1) Setup
 

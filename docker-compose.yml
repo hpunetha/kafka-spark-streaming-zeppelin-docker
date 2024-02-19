@@ -110,6 +110,9 @@ services:
       - "8080"
       - "8443"
       - "4040"
+    ports:
+      - '8080:8080'
+      - '8443:8443'
     volumes:
       - ./zeppelin/datadrive:/datadrive
       - ./zeppelin/pyspark-notebooks:/zeppelin/notebook
