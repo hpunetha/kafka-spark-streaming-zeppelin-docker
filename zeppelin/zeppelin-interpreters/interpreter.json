@@ -412,67 +412,6 @@
         "isUserImpersonate": false
       }
     },
-    "sh": {
-      "id": "sh",
-      "name": "sh",
-      "group": "sh",
-      "properties": {
-        "zeppelin.shell.interpolation": {
-          "name": "zeppelin.shell.interpolation",
-          "value": false,
-          "type": "checkbox"
-        },
-        "zeppelin.shell.principal": {
-          "name": "zeppelin.shell.principal",
-          "value": "",
-          "type": "string"
-        },
-        "shell.working.directory.user.home": {
-          "name": "shell.working.directory.user.home",
-          "value": false,
-          "type": "checkbox"
-        },
-        "zeppelin.shell.auth.type": {
-          "name": "zeppelin.shell.auth.type",
-          "value": "",
-          "type": "string"
-        },
-        "zeppelin.shell.keytab.location": {
-          "name": "zeppelin.shell.keytab.location",
-          "value": "",
-          "type": "string"
-        },
-        "shell.command.timeout.millisecs": {
-          "name": "shell.command.timeout.millisecs",
-          "value": "600000",
-          "type": "number"
-        }
-      },
-      "status": "READY",
-      "interpreterGroup": [
-        {
-          "name": "sh",
-          "class": "org.apache.zeppelin.shell.ShellInterpreter",
-          "defaultInterpreter": false,
-          "editor": {
-            "language": "sh",
-            "editOnDblClick": false,
-            "completionSupport": false
-          }
-        }
-      ],
-      "dependencies": [],
-      "option": {
-        "remote": true,
-        "port": -1,
-        "perNote": "shared",
-        "perUser": "shared",
-        "isExistingProcess": false,
-        "setPermission": false,
-        "owners": [],
-        "isUserImpersonate": false
-      }
-    },
     "spark": {
       "id": "spark",
       "name": "spark",
@@ -672,6 +611,67 @@
           "local": false
         }
       ],
+      "option": {
+        "remote": true,
+        "port": -1,
+        "perNote": "shared",
+        "perUser": "shared",
+        "isExistingProcess": false,
+        "setPermission": false,
+        "owners": [],
+        "isUserImpersonate": false
+      }
+    },
+    "sh": {
+      "id": "sh",
+      "name": "sh",
+      "group": "sh",
+      "properties": {
+        "zeppelin.shell.interpolation": {
+          "name": "zeppelin.shell.interpolation",
+          "value": false,
+          "type": "checkbox"
+        },
+        "zeppelin.shell.principal": {
+          "name": "zeppelin.shell.principal",
+          "value": "",
+          "type": "string"
+        },
+        "shell.working.directory.user.home": {
+          "name": "shell.working.directory.user.home",
+          "value": false,
+          "type": "checkbox"
+        },
+        "zeppelin.shell.auth.type": {
+          "name": "zeppelin.shell.auth.type",
+          "value": "",
+          "type": "string"
+        },
+        "zeppelin.shell.keytab.location": {
+          "name": "zeppelin.shell.keytab.location",
+          "value": "",
+          "type": "string"
+        },
+        "shell.command.timeout.millisecs": {
+          "name": "shell.command.timeout.millisecs",
+          "value": "600000",
+          "type": "number"
+        }
+      },
+      "status": "READY",
+      "interpreterGroup": [
+        {
+          "name": "sh",
+          "class": "org.apache.zeppelin.shell.ShellInterpreter",
+          "defaultInterpreter": false,
+          "editor": {
+            "language": "sh",
+            "editOnDblClick": false,
+            "completionSupport": false
+          }
+        }
+      ],
+      "dependencies": [],
       "option": {
         "remote": true,
         "port": -1,
