@@ -3,7 +3,7 @@
     {
       "text": "%sh\npip install kafka-python",
       "user": "anonymous",
-      "dateUpdated": "2024-02-19 04:30:43.600",
+      "dateUpdated": "2024-02-19 05:07:29.207",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
@@ -26,7 +26,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "Requirement already satisfied (use --upgrade to upgrade): kafka-python in /opt/conda/lib/python2.7/site-packages\nYou are using pip version 8.1.2, however version 24.0 is available.\nYou should consider upgrading via the \u0027pip install --upgrade pip\u0027 command.\n"
+            "data": "Collecting kafka-python\n  Downloading https://files.pythonhosted.org/packages/75/68/dcb0db055309f680ab2931a3eeb22d865604b638acf8c914bedf4c1a0c8c/kafka_python-2.0.2-py2.py3-none-any.whl (246kB)\nInstalling collected packages: kafka-python\nSuccessfully installed kafka-python-2.0.2\nYou are using pip version 8.1.2, however version 24.0 is available.\nYou should consider upgrading via the \u0027pip install --upgrade pip\u0027 command.\n"
           }
         ]
       },
@@ -34,8 +34,8 @@
       "jobName": "paragraph_1556538860554_-1121550077",
       "id": "20190429-115420_1698791579",
       "dateCreated": "2019-04-29 11:54:20.554",
-      "dateStarted": "2024-02-19 04:30:43.664",
-      "dateFinished": "2024-02-19 04:30:43.958",
+      "dateStarted": "2024-02-19 05:07:29.275",
+      "dateFinished": "2024-02-19 05:07:31.853",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -43,7 +43,7 @@
       "title": "",
       "text": "%producer.pyspark\n\ndf \u003d (spark.read.format(\"com.databricks.spark.csv\")\n        .option(\"header\", \"true\")\n        .option(\"inferSchema\",\"true\")\n        .load(\"/datadrive/census_1000.csv\"))\n        \ndf_list \u003d df.collect()\ndf.show()",
       "user": "anonymous",
-      "dateUpdated": "2024-02-19 04:30:49.512",
+      "dateUpdated": "2024-02-19 05:07:34.448",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
@@ -80,10 +80,10 @@
           "tooltip": "View in Spark web UI",
           "group": "spark",
           "values": [
-            "http://172.25.0.19:4040/jobs/job?id\u003d8",
-            "http://172.25.0.19:4040/jobs/job?id\u003d9",
-            "http://172.25.0.19:4040/jobs/job?id\u003d10",
-            "http://172.25.0.19:4040/jobs/job?id\u003d11"
+            "http://172.25.0.19:4040/jobs/job?id\u003d0",
+            "http://172.25.0.19:4040/jobs/job?id\u003d1",
+            "http://172.25.0.19:4040/jobs/job?id\u003d2",
+            "http://172.25.0.19:4040/jobs/job?id\u003d3"
           ],
           "interpreterSettingId": "producer"
         }
@@ -92,15 +92,15 @@
       "jobName": "paragraph_1556120282490_1275576273",
       "id": "20190424-153802_2004623441",
       "dateCreated": "2019-04-24 15:38:02.490",
-      "dateStarted": "2024-02-19 04:30:49.589",
-      "dateFinished": "2024-02-19 04:30:50.325",
+      "dateStarted": "2024-02-19 05:07:34.507",
+      "dateFinished": "2024-02-19 05:07:48.187",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%producer.pyspark\nimport time\nimport json\nimport random\nimport logging\n\nfrom kafka import KafkaProducer\nfrom kafka.errors import KafkaError\n\nKAFKA_BROKER \u003d \"kafka1:9092\"\nKAFKA_TOPIC \u003d \"default_topic\"\n\nproducer \u003d KafkaProducer(bootstrap_servers\u003d[KAFKA_BROKER])\nindex \u003d 0\n\nwhile True:\n    \n    row_dict \u003d df_list[index].asDict()\n    \n    future \u003d producer.send(\n        topic\u003dKAFKA_TOPIC, \n        key\u003dstr(row_dict[\"_c0\"]).encode(\"utf-8\"),\n        value\u003djson.dumps(row_dict).encode(\"utf-8\"))\n    \n    try:\n        record_metadata \u003d future.get(timeout\u003d10)\n    except KafkaError:\n        # Decide what to do if produce request failed...\n        logging.exception(\"Error\")\n        pass\n    \n    producer.flush()\n    \n    index +\u003d 1\n    time.sleep(random.uniform(0.1,3.0))",
+      "text": "%producer.pyspark\nimport time\nimport json\nimport random\nimport logging\n\nfrom kafka import KafkaProducer\nfrom kafka.errors import KafkaError\n\nKAFKA_BROKER \u003d \"kafka2:9092\"\nKAFKA_TOPIC \u003d \"default_topic\"\n\nproducer \u003d KafkaProducer(bootstrap_servers\u003d[KAFKA_BROKER])\nindex \u003d 0\n\nwhile True:\n    \n    row_dict \u003d df_list[index].asDict()\n    \n    future \u003d producer.send(\n        topic\u003dKAFKA_TOPIC, \n        key\u003dstr(row_dict[\"_c0\"]).encode(\"utf-8\"),\n        value\u003djson.dumps(row_dict).encode(\"utf-8\"))\n    \n    try:\n        record_metadata \u003d future.get(timeout\u003d10)\n    except KafkaError:\n        # Decide what to do if produce request failed...\n        logging.exception(\"Error\")\n        pass\n    \n    producer.flush()\n    \n    index +\u003d 1\n    time.sleep(random.uniform(0.1,3.0))",
       "user": "anonymous",
-      "dateUpdated": "2024-02-19 04:46:30.956",
+      "dateUpdated": "2024-02-19 05:10:30.683",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
@@ -123,7 +123,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "\u001b[0;31m\u001b[0m\n\u001b[0;31mKafkaTimeoutError\u001b[0mTraceback (most recent call last)\n\u001b[0;32m\u003cipython-input-30-e37ca415d993\u003e\u001b[0m in \u001b[0;36m\u003cmodule\u003e\u001b[0;34m()\u001b[0m\n\u001b[1;32m     20\u001b[0m         \u001b[0mtopic\u001b[0m\u001b[0;34m\u003d\u001b[0m\u001b[0mKAFKA_TOPIC\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     21\u001b[0m         \u001b[0mkey\u001b[0m\u001b[0;34m\u003d\u001b[0m\u001b[0mstr\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mrow_dict\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m\"_c0\"\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mencode\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"utf-8\"\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---\u003e 22\u001b[0;31m         value\u003djson.dumps(row_dict).encode(\"utf-8\"))\n\u001b[0m\u001b[1;32m     23\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     24\u001b[0m     \u001b[0;32mtry\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\n\u001b[0;32m/opt/conda/lib/python2.7/site-packages/kafka/producer/kafka.pyc\u001b[0m in \u001b[0;36msend\u001b[0;34m(self, topic, value, key, headers, partition, timestamp_ms)\u001b[0m\n\u001b[1;32m    574\u001b[0m         \u001b[0mkey_bytes\u001b[0m \u001b[0;34m\u003d\u001b[0m \u001b[0mvalue_bytes\u001b[0m \u001b[0;34m\u003d\u001b[0m \u001b[0mNone\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    575\u001b[0m         \u001b[0;32mtry\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--\u003e 576\u001b[0;31m             \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_wait_on_metadata\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mtopic\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mconfig\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m\u0027max_block_ms\u0027\u001b[0m\u001b[0;34m]\u001b[0m \u001b[0;34m/\u001b[0m \u001b[0;36m1000.0\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    577\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    578\u001b[0m             key_bytes \u003d self._serialize(\n\n\u001b[0;32m/opt/conda/lib/python2.7/site-packages/kafka/producer/kafka.pyc\u001b[0m in \u001b[0;36m_wait_on_metadata\u001b[0;34m(self, topic, max_wait)\u001b[0m\n\u001b[1;32m    701\u001b[0m             \u001b[0;32mif\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0mmetadata_event\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mis_set\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    702\u001b[0m                 raise Errors.KafkaTimeoutError(\n\u001b[0;32m--\u003e 703\u001b[0;31m                     \"Failed to update metadata after %.1f secs.\" % (max_wait,))\n\u001b[0m\u001b[1;32m    704\u001b[0m             \u001b[0;32melif\u001b[0m \u001b[0mtopic\u001b[0m \u001b[0;32min\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_metadata\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0munauthorized_topics\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    705\u001b[0m                 \u001b[0;32mraise\u001b[0m \u001b[0mErrors\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mTopicAuthorizationFailedError\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mtopic\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\n\u001b[0;31mKafkaTimeoutError\u001b[0m: KafkaTimeoutError: Failed to update metadata after 60.0 secs."
+            "data": "\u001b[0;31m\u001b[0m\n\u001b[0;31mKafkaTimeoutError\u001b[0mTraceback (most recent call last)\n\u001b[0;32m\u003cipython-input-10-7f01caf41258\u003e\u001b[0m in \u001b[0;36m\u003cmodule\u003e\u001b[0;34m()\u001b[0m\n\u001b[1;32m     20\u001b[0m         \u001b[0mtopic\u001b[0m\u001b[0;34m\u003d\u001b[0m\u001b[0mKAFKA_TOPIC\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     21\u001b[0m         \u001b[0mkey\u001b[0m\u001b[0;34m\u003d\u001b[0m\u001b[0mstr\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mrow_dict\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m\"_c0\"\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mencode\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"utf-8\"\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---\u003e 22\u001b[0;31m         value\u003djson.dumps(row_dict).encode(\"utf-8\"))\n\u001b[0m\u001b[1;32m     23\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     24\u001b[0m     \u001b[0;32mtry\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\n\u001b[0;32m/opt/conda/lib/python2.7/site-packages/kafka/producer/kafka.pyc\u001b[0m in \u001b[0;36msend\u001b[0;34m(self, topic, value, key, headers, partition, timestamp_ms)\u001b[0m\n\u001b[1;32m    574\u001b[0m         \u001b[0mkey_bytes\u001b[0m \u001b[0;34m\u003d\u001b[0m \u001b[0mvalue_bytes\u001b[0m \u001b[0;34m\u003d\u001b[0m \u001b[0mNone\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    575\u001b[0m         \u001b[0;32mtry\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--\u003e 576\u001b[0;31m             \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_wait_on_metadata\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mtopic\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mconfig\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m\u0027max_block_ms\u0027\u001b[0m\u001b[0;34m]\u001b[0m \u001b[0;34m/\u001b[0m \u001b[0;36m1000.0\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    577\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    578\u001b[0m             key_bytes \u003d self._serialize(\n\n\u001b[0;32m/opt/conda/lib/python2.7/site-packages/kafka/producer/kafka.pyc\u001b[0m in \u001b[0;36m_wait_on_metadata\u001b[0;34m(self, topic, max_wait)\u001b[0m\n\u001b[1;32m    701\u001b[0m             \u001b[0;32mif\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0mmetadata_event\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mis_set\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    702\u001b[0m                 raise Errors.KafkaTimeoutError(\n\u001b[0;32m--\u003e 703\u001b[0;31m                     \"Failed to update metadata after %.1f secs.\" % (max_wait,))\n\u001b[0m\u001b[1;32m    704\u001b[0m             \u001b[0;32melif\u001b[0m \u001b[0mtopic\u001b[0m \u001b[0;32min\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_metadata\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0munauthorized_topics\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    705\u001b[0m                 \u001b[0;32mraise\u001b[0m \u001b[0mErrors\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mTopicAuthorizationFailedError\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mtopic\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\n\u001b[0;31mKafkaTimeoutError\u001b[0m: KafkaTimeoutError: Failed to update metadata after 60.0 secs."
           }
         ]
       },
@@ -131,8 +131,8 @@
       "jobName": "paragraph_1556124778874_694089528",
       "id": "20190424-165258_808657351",
       "dateCreated": "2019-04-24 16:52:58.874",
-      "dateStarted": "2024-02-19 04:46:30.996",
-      "dateFinished": "2024-02-19 04:47:31.168",
+      "dateStarted": "2024-02-19 05:10:30.730",
+      "dateFinished": "2024-02-19 05:11:30.918",
       "status": "ERROR",
       "progressUpdateIntervalMs": 500
     },
